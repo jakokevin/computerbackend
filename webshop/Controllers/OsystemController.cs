@@ -35,7 +35,30 @@ namespace webshop.Controllers
 
                 return StatusCode(201, new { message = "sikeres felvetel", result = osystem });
             }
-            return StatusCode(400, new { message = "sikertelen felvetel", result = osystem });
+            return StatusCode(400, new { message = "sikertelen" +
+                " felvetel", result = osystem });
         }
+
+
+        [HttpGet("allOsystem")]
+        public object GetAllOsystem()
+        {
+            var osystems = _context.Osystems.ToList();
+            Exception e = new();
+
+            if(osystems.Count > 0)
+            {
+                return StatusCode(200, new { message = "sikeres lekerdezes", result = osystems });
+            }
+            else if(osystems.Count < 1)
+            {
+                return StatusCode(200, new { message = "ures a tabla", result = osystems });
+            }
+            else
+            {
+                return StatusCode(200, new { message = "hiba a lekerdezesben", result = osystems });
+            }
+        }
+
     }
 }
